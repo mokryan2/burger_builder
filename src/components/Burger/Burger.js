@@ -11,6 +11,12 @@ const burger = (props) => {
             });
         });
 
+    //The transformedIngredients constant is needed to allow us to convert an OBJECT into an ARRAY.
+    //First the Object.keys() method lets us extract the keys of an object (in this case the initial state of ingredients) and converts it into an array.
+    //Second the igKey is mapped so we can get the individual keys of said array.
+    //Third the spread operator is applied to a new Array so we can get a new array with however many elements are within.
+    //Fourth the ingredients are rendered into the DOM.
+
     return (
         <div className={classes.Burger}>
             <BurgerIngredients type="bread-top" />
