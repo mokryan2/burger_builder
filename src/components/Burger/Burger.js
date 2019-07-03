@@ -4,7 +4,7 @@ import classes from "./Burger.css";
 
 const burger = (props) => {
 
-    const transformedIngredients = Object.keys(props.ingredients)
+    let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
                 return <BurgerIngredients key={igKey + i} type={igKey} />
@@ -13,7 +13,9 @@ const burger = (props) => {
         .reduce((arr, el) => {
             return arr.concat(el)
         }, []);
-    console.log(transformedIngredients);
+    if (transformedIngredients.length === 0) {
+        transformedIngredients = <p>Start stacking up ingredients!</p>
+    }
 
     //The transformedIngredients constant is needed to allow us to convert an OBJECT into an ARRAY.
     //First the Object.keys() method lets us extract the keys of an object (in this case the initial state of ingredients) and converts it into an array.
