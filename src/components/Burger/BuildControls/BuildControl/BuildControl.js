@@ -11,6 +11,7 @@ const buildControl = (props) => (
         <button
             className={classes.Remove}
             onClick={props.removed}
+            disabled={props.disabled}
         >Remove</button>
     </div>
 )
