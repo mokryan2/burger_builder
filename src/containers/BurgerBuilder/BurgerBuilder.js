@@ -7,7 +7,8 @@ const INGREDIENT_PRICE = {
     lettuce: .8,
     bacon: .9,
     cheese: .75,
-    meat: 1.4
+    meat: 1.4,
+    egg: 1.2
 }
 
 class BurgerBuilder extends Component {
@@ -17,7 +18,8 @@ class BurgerBuilder extends Component {
             lettuce: 0,
             bacon: 0,
             cheese: 0,
-            meat: 0
+            meat: 0,
+            egg: 0
         },
         totalPrice: 5
     };
@@ -50,7 +52,7 @@ class BurgerBuilder extends Component {
         updatedIngredient[type] = updatedIngredientCount;
         const priceDeduction = INGREDIENT_PRICE[type]
         const startPrice = this.state.totalPrice;
-        const endPrice = startPrice + priceDeduction;
+        const endPrice = startPrice - priceDeduction;
         this.setState({
             totalPrice: endPrice,
             ingredients: updatedIngredient
