@@ -55,6 +55,7 @@ class BurgerBuilder extends Component {
             totalPrice: endPrice,
             ingredients: updatedIngredient
         });
+        this.updatePurchaseState()
     };
 
     removeIngredientHandler = (type) => {
@@ -74,6 +75,7 @@ class BurgerBuilder extends Component {
             totalPrice: endPrice,
             ingredients: updatedIngredient
         });
+        this.updatePurchaseState()
     }
 
     render() {
