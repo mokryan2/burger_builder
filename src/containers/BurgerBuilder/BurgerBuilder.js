@@ -25,10 +25,7 @@ class BurgerBuilder extends Component {
         purchase: false
     };
 
-    updatePurchaseState() {
-        const ingredients = {
-            ...this.state.ingredients
-        };
+    updatePurchaseState(ingredients) {
         const total = Object.keys(ingredients)
             .map(igKey => {
                 return ingredients[igKey]
@@ -40,6 +37,8 @@ class BurgerBuilder extends Component {
             purchase: total > 0
         });
     };
+    // While this method is simiar to the one in Burger.js, we don't need to know the names.
+    // All we really need is the collective value of all the ingredients
 
     addIngredeientHandler = (type) => {
         const oldIngredientCount = this.state.ingredients[type];
@@ -55,7 +54,7 @@ class BurgerBuilder extends Component {
             totalPrice: endPrice,
             ingredients: updatedIngredient
         });
-        this.updatePurchaseState()
+        this.updatePurchaseState(updatedIngredient);
     };
 
     removeIngredientHandler = (type) => {
@@ -75,7 +74,7 @@ class BurgerBuilder extends Component {
             totalPrice: endPrice,
             ingredients: updatedIngredient
         });
-        this.updatePurchaseState()
+        this.updatePurchaseState(updatedIngredient);
     }
 
     render() {
