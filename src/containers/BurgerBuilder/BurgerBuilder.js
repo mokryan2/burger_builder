@@ -25,7 +25,8 @@ class BurgerBuilder extends Component {
 
         },
         totalPrice: 5,
-        purchase: false
+        purchase: false,
+        checkOut: false
     };
 
     updatePurchaseState(ingredients) {
@@ -78,7 +79,13 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredient
         });
         this.updatePurchaseState(updatedIngredient);
-    }
+    };
+
+    checkOutHandler() {
+        this.setState({
+            checkOut: true
+        })
+    };
 
     render() {
 
@@ -104,6 +111,7 @@ class BurgerBuilder extends Component {
                     disabled={disabledButton}
                     purchase={this.state.purchase}
                     price={this.state.totalPrice}
+                    ordered={this.checkOutHandler}
                 />
             </Aux >
         );
