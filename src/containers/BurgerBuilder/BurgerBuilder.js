@@ -93,6 +93,10 @@ class BurgerBuilder extends Component {
         })
     };
 
+    checkOutContinueHandler = () => {
+        alert("PAY MEEEEE")
+    }
+
     render() {
 
         const disabledButton = {
@@ -108,6 +112,8 @@ class BurgerBuilder extends Component {
                     show={this.state.checkOut}
                     modalClosed={this.checkOutCancelHandler}>
                     <OrderSummary
+                        checkOutCancelled={this.checkOutCancelHandler}
+                        checkOutContinue={this.checkOutContinueHandler}
                         ingredients={this.state.ingredients}
                         price={this.state.totalPrice}
                     />
