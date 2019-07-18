@@ -1,9 +1,10 @@
 import React from "react";
-import classes from "./NavItems.css"
+import classes from "./NavItems.css";
+import NavItem from "./NavItem/NavItem";
 
 const navItems = (props) => (
-    <ul>
-
+    <ul className={classes.NavItems}>
+        <NavItem />
     </ul>
 );
 
