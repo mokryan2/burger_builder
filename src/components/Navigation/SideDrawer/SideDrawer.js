@@ -8,8 +8,9 @@ import classes from "./SideDrawer.css";
 const sideDrawer = (props) => {
     return (
         <Aux>
-            <Backdrop 
+            <Backdrop
                 show
+                clicked={props.clicked}
             />
             <div className={classes.SideDrawer}>
                 <div className={classes.Logo}>
