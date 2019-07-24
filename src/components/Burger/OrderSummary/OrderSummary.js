@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import Aux from "../../../hoc/Auxiliary";
+import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import Button from "../../UI/Button/Button";
 
 class OrderSummary extends Component {
+
+    // This can be a functional component; doesn't need to be a class based component
+
     componentWillUpdate() {
         console.log("[OrderSummary] WillUpdate")
     };
-// This is a lifecycle hook used to see when a component is rerendering itself once something changes.
-// By using this we can check to see how often a component is rerendering, which will allow us to improve overall performance of the app
+    // This is a lifecycle hook used to see when a component is rerendering itself once something changes.
+    // By using this we can check to see how often a component is rerendering, which will allow us to improve overall performance of the app
 
     render() {
         const ingredientSummary = Object.keys(this.props.ingredients)
