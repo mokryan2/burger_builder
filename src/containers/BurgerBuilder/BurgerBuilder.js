@@ -5,6 +5,7 @@ import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const INGREDIENT_PRICE = {
     lettuce: .8,
@@ -27,7 +28,8 @@ class BurgerBuilder extends Component {
         },
         totalPrice: 5,
         purchase: false,
-        checkOut: false
+        checkOut: false,
+        loading: false
     };
 
     updatePurchaseState(ingredients) {
@@ -95,7 +97,9 @@ class BurgerBuilder extends Component {
     };
 
     checkOutContinueHandler = () => {
-        // alert("PAY MEEEEE")
+        this.setState({
+            loading: true
+        });
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
@@ -112,10 +116,19 @@ class BurgerBuilder extends Component {
         }
         axios.post("/orders.json", order)
             .then(response => {
-                console.log(response);
+                this.setState({
+                    loading: false,
+                    checkOut: false
+                });
             })
-            .catch(err =>
-                console.log(err));
+            .catch(err => {
+                this.setState({
+                    loading: false,
+                    checkOut: false
+                });
+                // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
+                // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!
+            });
     };
     // This is important to note that becuase we're using firebase to serve as the database, you need to add ".json" to the end of the url link
     // Evetually we're going to replace the hard-coded stuff to be collectible from a form, but this will do for test purposes
@@ -129,17 +142,24 @@ class BurgerBuilder extends Component {
             disabledButton[key] = disabledButton[key] <= 0
         };
 
+        let orderSummary = <OrderSummary
+            checkOutCancelled={this.checkOutCancelHandler}
+            checkOutContinue={this.checkOutContinueHandler}
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+        />
+
+        if (this.state.loading) {
+            orderSummary = <Spinner />
+        }
+
+
         return (
             <Aux>
                 <Modal
                     show={this.state.checkOut}
                     modalClosed={this.checkOutCancelHandler}>
-                    <OrderSummary
-                        checkOutCancelled={this.checkOutCancelHandler}
-                        checkOutContinue={this.checkOutContinueHandler}
-                        ingredients={this.state.ingredients}
-                        price={this.state.totalPrice}
-                    />
+                    {orderSummary}
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
