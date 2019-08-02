@@ -6,10 +6,11 @@ import Backdrop from "../Backdrop/Backdrop";
 class Modal extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     };
 
-    // This will make it so we can check to see if the order summary component will update if the show property should change 
+    // This will make it so we can check to see if the order summary component will update if the show property should change.
+    // We also needed to account for the fact the spinner is technically considered a child of the modal; therefore, we needed to add in an additional.
 
     componentWillUpdate() {
         console.log("[Modal] WillUpdate")
