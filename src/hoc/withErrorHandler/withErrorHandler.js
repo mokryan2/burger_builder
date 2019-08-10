@@ -12,6 +12,11 @@ const withErrorHandler = (WrappedComponent, axios) => {
         };
 
         componentDidMount() {
+            axios.interceptors.request.use(req => {
+                this.setState({
+                    error: null
+                })
+            })
             axios.interceptors.response.use(null, err => {
                 this.setState({
                     error: err
@@ -19,11 +24,21 @@ const withErrorHandler = (WrappedComponent, axios) => {
             })
         };
 
+        errorConfirmedHandler = () => {
+            this.setState({
+                error: null
+            })
+        }
+
         render() {
             return (
                 <Aux>
-                    <Modal show>
-                        Something is broken (╯°□°)╯︵ ┻━┻
+                    <Modal
+                        show={this.state.error}
+                        clicked={this.errorConfirmedHandler}
+                    >
+                        {this.state.error.message}
+                        (╯°□°)╯︵ ┻━┻
                     </Modal>
                     <WrappedComponent {...this.props} />
                 </Aux>
