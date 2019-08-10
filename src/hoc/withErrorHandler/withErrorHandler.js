@@ -6,8 +6,8 @@ const withErrorHandler = (WrappedComponent) => {
     return (props) => {
         return (
             <Aux>
-                <Modal>
-            Something is broken (╯°□°)╯︵ ┻━┻
+                <Modal show>
+                    Something is broken (╯°□°)╯︵ ┻━┻
                 </Modal>
                 <WrappedComponent {...props} />
             </Aux>
