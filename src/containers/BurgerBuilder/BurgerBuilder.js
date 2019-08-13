@@ -7,6 +7,7 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import spinner from "../../components/UI/Spinner/Spinner";
 
 const INGREDIENT_PRICE = {
     lettuce: .8,
@@ -157,6 +158,22 @@ class BurgerBuilder extends Component {
         }
 
 
+        let burger = <Spinner />;
+        if (this.state.ingredients) {
+            burger =
+                <Aux>
+                    <Burger ingredients={this.state.ingredients} />
+                    <BuildControls
+                        ingredientAdded={this.addIngredeientHandler}
+                        ingredientRemoved={this.removeIngredientHandler}
+                        disabled={disabledButton}
+                        purchase={this.state.purchase}
+                        price={this.state.totalPrice}
+                        ordered={this.checkOutHandler}
+                    />
+                </Aux>
+        }
+
         return (
             <Aux>
                 <Modal
@@ -164,15 +181,7 @@ class BurgerBuilder extends Component {
                     modalClosed={this.checkOutCancelHandler}>
                     {orderSummary}
                 </Modal>
-                <Burger ingredients={this.state.ingredients} />
-                <BuildControls
-                    ingredientAdded={this.addIngredeientHandler}
-                    ingredientRemoved={this.removeIngredientHandler}
-                    disabled={disabledButton}
-                    purchase={this.state.purchase}
-                    price={this.state.totalPrice}
-                    ordered={this.checkOutHandler}
-                />
+                {burger}
             </Aux >
         );
     }
