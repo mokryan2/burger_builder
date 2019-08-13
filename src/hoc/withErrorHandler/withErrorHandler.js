@@ -12,18 +12,25 @@ const withErrorHandler = (WrappedComponent, axios) => {
         };
 
         componentWillMount() {
-            axios.interceptors.request.use(req => {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
                 this.setState({
                     error: null
                 });
                 return req;
             })
-            axios.interceptors.response.use(res => res, error => {
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
                 this.setState({
                     error: error
                 });
             })
         };
+
+        componentWillUnmount() {
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        };
+        // Because of the classless nature of this component, this is necessary because it will prevent the leakage of memory caused by continually running the will mount.
+        // At the worst case scenario, the constant calling of componentWillMount might cause errors or screw with state.
 
         errorConfirmedHandler = () => {
             this.setState({
