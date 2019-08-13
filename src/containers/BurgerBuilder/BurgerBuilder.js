@@ -7,7 +7,6 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import spinner from "../../components/UI/Spinner/Spinner";
 
 const INGREDIENT_PRICE = {
     lettuce: .8,
