@@ -17,6 +17,8 @@ class Checkout extends Component {
             <div>
                 <CheckoutSummary
                     ingredients={this.state.ingredients}
+                    checkoutCancelled={}
+                    checkoutContinued={}
                 />
             </div>
         )
