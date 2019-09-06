@@ -28,6 +28,7 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
+        console.log(this.props)
         axios.get("https://react-burger-238f6.firebaseio.com/ingredients.json")
             .then(response => {
                 this.setState({
@@ -106,38 +107,41 @@ class BurgerBuilder extends Component {
     };
 
     checkOutContinueHandler = () => {
-        this.setState({
-            loading: true
-        });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: "Ryan Mok",
-                address: {
-                    street: "SecretAve 2",
-                    zipcode: "53049",
-                    country: "USA"
-                },
-                email: "testytest@test.com"
-            },
-            orderType: "Fastest"
-        }
-        axios.post("/orders.json", order)
-            .then(response => {
-                this.setState({
-                    loading: false,
-                    checkOut: false
-                });
-            })
-            .catch(err => {
-                this.setState({
-                    loading: false,
-                    checkOut: false
-                });
-                // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
-                // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!
-            });
+        // this.setState({
+        //     loading: true
+        // });
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: "Ryan Mok",
+        //         address: {
+        //             street: "SecretAve 2",
+        //             zipcode: "53049",
+        //             country: "USA"
+        //         },
+        //         email: "testytest@test.com"
+        //     },
+        //     orderType: "Fastest"
+        // }
+        // axios.post("/orders.json", order)
+        //     .then(response => {
+        //         this.setState({
+        //             loading: false,
+        //             checkOut: false
+        //         });
+        //     })
+        //     .catch(err => {
+        //         this.setState({
+        //             loading: false,
+        //             checkOut: false
+        //         });
+        //         // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
+        //         // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!
+        //     });
+        this.props.history.push("/checkout");
+        // Due to the nature of the component, we automatically have access to match, history, and location props which can be seen via the componentDidMount function; because of this
+        // connection, we can essentially stack the checkout page to progress forward when we click the checkout button in the modal.
     };
     // This is important to note that becuase we're using firebase to serve as the database, you need to add ".json" to the end of the url link
     // Evetually we're going to replace the hard-coded stuff to be collectible from a form, but this will do for test purposes
