@@ -139,7 +139,18 @@ class BurgerBuilder extends Component {
         //         // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
         //         // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!
         //     });
-        this.props.history.push("/checkout");
+        const queryParams = [];
+
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]))
+            // encodeURIComponent is a helper method offered by javascript that encodes elements so they can be used in a URL; mostly used for white spaces.
+        };
+        const queryString = queryParams.join("&");
+
+        this.props.history.push({
+            pathname: "/checkout",
+            search: "?" + queryString
+        });
         // Due to the nature of the component, we automatically have access to match, history, and location props which can be seen via the componentDidMount function; because of this
         // connection, we can essentially stack the checkout page to progress forward when we click the checkout button in the modal.
     };
