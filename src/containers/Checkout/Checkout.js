@@ -13,13 +13,27 @@ class Checkout extends Component {
         }
     }
 
+    componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        // Remember that the componentDidMount method has an object that can be viewed via console.log(this.props); we're getting the props via this methodology
+        const ingredients = {};
+        for (let param of query.entries()) {
+            ingredients[param[0]] = +param[1]
+        };
+        // This allows us to loop through the list of ingredients and convert the URL into a key, value pair that can be used in the empty ingredients object stated up above
+        this.setState({
+            ingredients: ingredients
+        });
+    };
+
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
-    }
+    };
+    // This will essentially reset the process and send us back to the burgerBuilder page.
 
     checkoutContinuedHandler = () => {
         this.props.history.replace("/checkout/contact-data");
-    }
+    };
 
 
     render() {
