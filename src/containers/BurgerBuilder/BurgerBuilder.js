@@ -114,6 +114,10 @@ class BurgerBuilder extends Component {
             // encodeURIComponent is a helper method offered by javascript that encodes elements so they can be used in a URL; mostly used for white spaces.
             // This portion is needed so that it can be parsed into the Checkout.js file to acquire the ingredient count
         };
+
+        queryParams.push("price=" + this.state.totalPrice.toFixed(2));
+        //This is needed so we can also push the actual price of the burger to the checkout page! 
+
         const queryString = queryParams.join("&");
         // This is so the URL continues and puts everything together like a continuous string
 

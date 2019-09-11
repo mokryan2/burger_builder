@@ -19,12 +19,20 @@ class Checkout extends Component {
         const query = new URLSearchParams(this.props.location.search);
         // Remember that the componentDidMount method has an object that can be viewed via console.log(this.props); we're getting the props via this methodology
         const ingredients = {};
+        let price = 0;
         for (let param of query.entries()) {
-            ingredients[param[0]] = +param[1]
+            if (param[0] === "price") {
+                price = param[1]
+                // This allows us to look at the price first and collect how much the burger will cost
+            }
+            else {
+                ingredients[param[0]] = +param[1]
+            }
         };
         // This allows us to loop through the list of ingredients and convert the URL into a key, value pair that can be used in the empty ingredients object stated up above
         this.setState({
-            ingredients: ingredients
+            ingredients: ingredients,
+            totalPrice: price
         });
     };
 

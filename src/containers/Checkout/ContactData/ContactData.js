@@ -11,7 +11,8 @@ class ContactData extends Component {
             street: "",
             zipCode: ""
         },
-        phoneNumber: ""
+        phoneNumber: "",
+        loading: false
     };
 
     orderHandler = (event) => {
@@ -20,7 +21,7 @@ class ContactData extends Component {
             loading: true
         });
         const order = {
-            ingredients: this.state.ingredients,
+            ingredients: this.props.ingredients,
             price: this.state.totalPrice,
             customer: {
                 name: "Ryan Mok",
