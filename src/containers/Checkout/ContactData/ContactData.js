@@ -13,6 +13,10 @@ class ContactData extends Component {
         phoneNumber: ""
     };
 
+    orderHandler = () => {
+
+    };
+
     render() {
         return (
             <div className={classes.ContactData}>
@@ -23,7 +27,10 @@ class ContactData extends Component {
                     <input className={classes.Input} type="text" name="street" placeholder="Your Address" />
                     <input className={classes.Input} type="text" name="zipCode" placeholder="Your Zip Code" />
                     <input className={classes.Input} type="text" name="phoneNumber" placeholder="Your Phone Number" />
-                    <Button btnType="Success">ORDER</Button>
+                    <Button
+                        btnType="Success"
+                        clicked={this.orderHandler}
+                    >ORDER</Button>
                 </form>
             </div>
         )
