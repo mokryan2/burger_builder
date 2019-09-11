@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "../../../components/UI/Button/Button";
 import classes from "./ContactData.css"
+import axios from "axios";
 
 class ContactData extends Component {
     state = {
@@ -13,8 +14,42 @@ class ContactData extends Component {
         phoneNumber: ""
     };
 
-    orderHandler = () => {
-
+    orderHandler = (event) => {
+        event.preventDefault();
+        this.setState({
+            loading: true
+        });
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: "Ryan Mok",
+                address: {
+                    street: "SecretAve 2",
+                    zipcode: "53049",
+                    country: "USA"
+                },
+                email: "testytest@test.com"
+            },
+            orderType: "Fastest"
+        }
+        axios.post("/orders.json", order)
+            .then(response => {
+                this.setState({
+                    loading: false,
+                    checkOut: false
+                });
+            })
+            .catch(err => {
+                this.setState({
+                    loading: false,
+                    checkOut: false
+                });
+                // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
+                // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!
+            });
+        // This is important to note that becuase we're using firebase to serve as the database, you need to add ".json" to the end of the url link
+        // Evetually we're going to replace the hard-coded stuff to be collectible from a form, but this will do for test purposes
     };
 
     render() {

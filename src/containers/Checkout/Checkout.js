@@ -52,6 +52,8 @@ class Checkout extends Component {
                         <ContactData
                             ingredients={this.state.ingredients} />)
                     }
+                // We changed this from the component to the render method to allow the ContactData component to accept props. 
+                // This is important so the user data can actually be passed and collected.
                 />
             </div>
         )
