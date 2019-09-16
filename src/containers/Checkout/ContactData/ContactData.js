@@ -28,7 +28,7 @@ class ContactData extends Component {
                 name: "Ryan Mok",
                 address: {
                     street: "SecretAve 2",
-                    zipcode: "53049",
+                    zipCode: "53049",
                     country: "USA"
                 },
                 email: "testytest@test.com"
@@ -38,14 +38,15 @@ class ContactData extends Component {
         axios.post("/orders.json", order)
             .then(response => {
                 this.setState({
-                    loading: false,
-                    checkOut: false
+                    loading: false
                 });
+                this.props.history.push("/")
+                // Because we're granted the history object from Checkout.js, we can force a redirect
+                // to the BurgerBuilder after posting data
             })
             .catch(err => {
                 this.setState({
-                    loading: false,
-                    checkOut: false
+                    loading: false
                 });
                 // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
                 // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!

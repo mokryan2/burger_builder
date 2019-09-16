@@ -51,10 +51,13 @@ class Checkout extends Component {
                 />
                 <Route
                     path={this.props.match.path + "/contact-data"}
-                    render={() => (
+                    render={(props) => (
                         <ContactData
                             ingredients={this.state.ingredients}
-                            price={this.state.totalPrice} />)
+                            price={this.state.totalPrice}
+                            {...props} />)
+                        // We pass props here to give the ContactData component access to the history object so we can eventually 
+                        // redirect the app to the BurgerBuilder after posting the data we created to firebase
                     }
                 // We changed this from the component to the render method to allow the ContactData component to accept props. 
                 // This is important so the user data can actually be passed and collected.

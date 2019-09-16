@@ -40,6 +40,8 @@ class BurgerBuilder extends Component {
                     error: true
                 })
             });
+        // It is important to note that this method requires an ingredients object with the ingredients
+        // to ALWAYS exist within firebase. If it isn't there, you'll get stuck with infinite loading...
     }
 
     updatePurchaseState(ingredients) {
