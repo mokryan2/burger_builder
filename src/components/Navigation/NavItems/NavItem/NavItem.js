@@ -6,6 +6,7 @@ const navItem = (props) => (
     <li className={classes.NavItem}>
         <NavLink
             to={props.link}
+            exact
             activeClassName={classes.active}>
             {/*CSS Modules takes the classNames and creates unique classNames; in other words, the active class from CSS modules won't match with the active class from NavLink
         This is fixed by using activeClassName to allow us to reference the CSS file!*/}
