@@ -7,10 +7,21 @@
     box-sizing: border-box;
 }
 
+.Order:hover{
+    box-shadow: 0 2px 3px rgb(3, 112, 3);
+    transition: 1s;
+}
+
 .Ingredients{
     text-transform: capitalize;
     display: inline-block;
     margin: 0 8px;
     border: 1px solid #ccc;
     padding: 5px;
+}
+
+.Ingredients:hover{
+    background: rgb(168, 168, 0);
+    transition: .6s;
+    cursor: pointer;
 }
