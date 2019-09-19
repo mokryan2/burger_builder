@@ -58,7 +58,8 @@ class ContactData extends Component {
                 },
                 value: ""
             },
-        }
+        },
+        loading: false
     };
 
     orderHandler = (event) => {
@@ -92,13 +93,26 @@ class ContactData extends Component {
 
     render() {
 
+        const formElementArray = [];
+
+        for (let key in this.state.orderForm) {
+            formElementArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            })
+        };
+        // Much like in the Orders component, what we do is create an array to hold the information, push the state into said array (i.e. the orderForm) while collecting the id and config,
+        // and we eventually map the different fields to dynamically display the form!
+
         let form = (
             <form>
-                <Input elementType="..." elementConfig="..." value="..." />
-                <Input inputtype="input" type="email" name="email" placeholder="Your E-mail" />
-                <Input inputtype="input" type="text" name="street" placeholder="Your Address" />
-                <Input inputtype="input" type="text" name="zipCode" placeholder="Your Zip Code" />
-                <Input inputtype="input" type="text" name="phoneNumber" placeholder="Your Phone Number" />
+                {formElementArray.map(formElement => (
+                    <Input
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value} />
+                ))}
                 <Button
                     btnType="Success"
                     clicked={this.orderHandler}
