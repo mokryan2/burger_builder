@@ -20,6 +20,22 @@ const input = (props) => {
                 value={props.value}
             />
             break;
+        case ("select"):
+            inputElement = (
+                <select
+                    className={classes.InputElement}
+                    value={props.value}>
+                    {props.elementConfig.options.map(option => (
+                        <option
+                            key={option.value}
+                            value={option.value}>
+                            {option.displayValue}
+                        </option>
+                    ))}
+                </select>
+                // This switch statement is a little different because we actually need to map out the options in order for this to work; therefore, we need to include a closing tag.
+            );
+            break;
         default:
             inputElement = <input
                 className={classes.InputElement}
