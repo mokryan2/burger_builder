@@ -11,6 +11,8 @@
 }
 
 .InputElement{
+    width: 100%;
+    display: block;
     outline: none;
     font: inherit;
     padding:  6px 10px;
