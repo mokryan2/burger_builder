@@ -5,15 +5,27 @@ const input = (props) => {
 
     let inputElement = null;
 
-    switch (props.inputtype) {
+    switch (props.elementType) {
         case ("input"):
-            inputElement = <input className={classes.InputElement}{...props} />
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+            />
             break;
         case ("textarea"):
-            inputElement = <textarea className={classes.InputElement} {...props} />
+            inputElement = <textarea
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+            />
             break;
         default:
-            inputElement = <input className={classes.InputElement} {...props} />
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+            />
     }
     // Becasue we're going to have multiple types of inputs, it makes sense to use a switch case to manage the different inputs
     // Alternatively, we could have also just made multiple custom components, but this is much faster.
