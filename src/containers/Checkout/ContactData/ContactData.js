@@ -60,11 +60,11 @@ class ContactData extends Component {
 
         let form = (
             <form>
-                <Input type="text" name="name" placeholder="Your Name" />
-                <Input type="email" name="email" placeholder="Your E-mail" />
-                <Input type="text" name="street" placeholder="Your Address" />
-                <Input type="text" name="zipCode" placeholder="Your Zip Code" />
-                <Input type="text" name="phoneNumber" placeholder="Your Phone Number" />
+                <Input inputType="input" type="text" name="name" placeholder="Your Name" />
+                <Input inputType="input" type="email" name="email" placeholder="Your E-mail" />
+                <Input inputType="input" type="text" name="street" placeholder="Your Address" />
+                <Input inputType="input" type="text" name="zipCode" placeholder="Your Zip Code" />
+                <Input inputType="input" type="text" name="phoneNumber" placeholder="Your Phone Number" />
                 <Button
                     btnType="Success"
                     clicked={this.orderHandler}

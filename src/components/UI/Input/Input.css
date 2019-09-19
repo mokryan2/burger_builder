@@ -17,7 +17,8 @@
     font: inherit;
     padding:  6px 10px;
     border: 1px solid #ccc;
-    background-color: white
+    background-color: white;
+    box-sizing: border-box;
 }
 
 .InputElement:focus{
