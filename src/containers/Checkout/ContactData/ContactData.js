@@ -91,6 +91,10 @@ class ContactData extends Component {
         // Evetually we're going to replace the hard-coded stuff to be collectible from a form, but this will do for test purposes
     };
 
+    inputChangedHandler = (event) => {
+        console.log(event.target.value);
+    }
+
     render() {
 
         const formElementArray = [];
@@ -111,7 +115,9 @@ class ContactData extends Component {
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value} />
+                        value={formElement.config.value}
+                        changed={this.inputChangedHandler}
+                    />
                 ))}
                 <Button
                     btnType="Success"
