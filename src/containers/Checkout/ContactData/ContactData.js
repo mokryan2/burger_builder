@@ -91,9 +91,25 @@ class ContactData extends Component {
         // Evetually we're going to replace the hard-coded stuff to be collectible from a form, but this will do for test purposes
     };
 
-    inputChangedHandler = (event) => {
-        console.log(event.target.value);
-    }
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedForm = {
+            ...this.state.orderForm
+        };
+        // This is to grab and maintain immutable state for the top-level of the order form
+
+        const updatedFormElement = {
+            ...updatedForm[inputIdentifier]
+        };
+        // This is to go a level deeper than what we grab in the updated form to allow access to value field
+
+        updatedFormElement.value = event.target.value;
+        updatedForm[inputIdentifier] = updatedFormElement;
+        // These allow the field of the specific form element to be updated in the DOM
+
+        this.setState({
+            orderForm: updatedForm
+        });
+    };
 
     render() {
 
@@ -116,7 +132,7 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
                         value={formElement.config.value}
-                        changed={this.inputChangedHandler}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)}
                     />
                 ))}
                 <Button
