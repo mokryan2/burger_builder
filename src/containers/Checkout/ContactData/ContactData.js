@@ -14,7 +14,11 @@ class ContactData extends Component {
                     type: "text",
                     placeholder: "Your Name"
                 },
-                value: ""
+                value: "",
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             street: {
                 elementType: "input",
@@ -22,7 +26,11 @@ class ContactData extends Component {
                     type: "text",
                     placeholder: "Your Street"
                 },
-                value: ""
+                value: "",
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             zipCode: {
                 elementType: "input",
@@ -30,7 +38,11 @@ class ContactData extends Component {
                     type: "text",
                     placeholder: "Your ZIP Code"
                 },
-                value: ""
+                value: "",
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             country: {
                 elementType: "input",
@@ -38,7 +50,11 @@ class ContactData extends Component {
                     type: "text",
                     placeholder: "Your Country"
                 },
-                value: ""
+                value: "",
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             email: {
                 elementType: "input",
@@ -46,7 +62,11 @@ class ContactData extends Component {
                     type: "email",
                     placeholder: "Your E-Mail"
                 },
-                value: ""
+                value: "",
+                validation: {
+                    required: true
+                },
+                valid: false
             },
             orderType: {
                 elementType: "select",
@@ -60,6 +80,17 @@ class ContactData extends Component {
             },
         },
         loading: false
+    };
+
+    checkValidation = (value, rules) => {
+        let isValid = false;
+
+        if (rules.required) {
+            isValid = value.trim() !== " "
+        };
+        // If the rule is true, isValid is true if not an empty string
+
+        return isValid;
     };
 
     orderHandler = (event) => {
@@ -113,8 +144,10 @@ class ContactData extends Component {
         // This is to go a level deeper than what we grab in the updated form to allow access to value field
 
         updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidation(updatedFormElement.value, updatedFormElement.validation);
         updatedForm[inputIdentifier] = updatedFormElement;
         // These allow the field of the specific form element to be updated in the DOM
+        // The valid field is set to check if the value and validity is true
 
         this.setState({
             orderForm: updatedForm
