@@ -67,10 +67,20 @@ class ContactData extends Component {
         this.setState({
             loading: true
         });
+
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+        };
+        // We're creating an empty array to collect the data from the user here; We're also essentially creating a key:value pair set specifically to the
+        // the exact form element to allow collection by firebase!
+
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.price
-        }
+            price: this.props.price,
+            orderData: formData
+        };
+
         axios.post("/orders.json", order)
             .then(response => {
                 this.setState({
@@ -125,7 +135,7 @@ class ContactData extends Component {
         // and we eventually map the different fields to dynamically display the form!
 
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {formElementArray.map(formElement => (
                     <Input
                         key={formElement.id}
@@ -137,7 +147,6 @@ class ContactData extends Component {
                 ))}
                 <Button
                     btnType="Success"
-                    clicked={this.orderHandler}
                 >ORDER</Button>
             </form>
         )
