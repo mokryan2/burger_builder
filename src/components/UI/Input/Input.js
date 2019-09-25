@@ -6,9 +6,10 @@ const input = (props) => {
     let inputElement = null;
     const inputClasses = [classes.InputElement];
 
-    if (props.invalid) {
+    if (props.invalid && props.shouldValidate) {
         inputClasses.push(classes.Invalid)
     };
+    // We need to include the shouldValidate field to account for the fact the dropdown already has a default selection
 
     switch (props.elementType) {
         case ("input"):
