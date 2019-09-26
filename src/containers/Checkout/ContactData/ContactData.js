@@ -4,6 +4,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import classes from "./ContactData.css"
 import axios from "../../../axios-orders";
+import input from "../../../components/UI/Input/Input";
 
 class ContactData extends Component {
     state = {
@@ -86,6 +87,7 @@ class ContactData extends Component {
                 value: ""
             },
         },
+        formIsValid: false,
         loading: false
     };
 
@@ -165,8 +167,15 @@ class ContactData extends Component {
         // The valid field is set to check if the value and validity is true
         // The touched field is set to change to true when the user starts to input any data.
 
+        let formIsValid = true;
+        for (let inputIdentifier in updatedForm) {
+            formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
+        }
+        // This is set up in a way that double checks the validity of the form; if either half is invalid, formIsValid will be false!
+
         this.setState({
-            orderForm: updatedForm
+            orderForm: updatedForm,
+            formIsValid: formIsValid
         });
     };
 
