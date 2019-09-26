@@ -84,7 +84,8 @@ class ContactData extends Component {
                         { value: "cheapest", displayValue: "Cheapest" }
                     ]
                 },
-                value: ""
+                value: "",
+                valid: true
             },
         },
         formIsValid: false,
@@ -171,6 +172,7 @@ class ContactData extends Component {
         for (let inputIdentifier in updatedForm) {
             formIsValid = updatedForm[inputIdentifier].valid && formIsValid;
         }
+        console.log(formIsValid);
         // This is set up in a way that double checks the validity of the form; if either half is invalid, formIsValid will be false!
 
         this.setState({
@@ -208,6 +210,7 @@ class ContactData extends Component {
                 ))}
                 <Button
                     btnType="Success"
+                    disabled={!this.state.formIsValid}
                 >ORDER</Button>
             </form>
         )
