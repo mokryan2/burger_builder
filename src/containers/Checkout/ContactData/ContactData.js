@@ -85,6 +85,9 @@ class ContactData extends Component {
                     ]
                 },
                 value: "",
+                validation: {},
+                // Because our inputChangedHandler is looking for the field "validation", whenever the delivery method is changed it causes an error
+                // The quick fix is to add a validation field w/ nothing inside it to meet the validation object search and remove the error!
                 valid: true
             },
         },
