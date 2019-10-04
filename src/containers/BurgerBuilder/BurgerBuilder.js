@@ -14,7 +14,6 @@ import * as actionTypes from "../../store/actions";
 class BurgerBuilder extends Component {
 
     state = {
-        purchase: false,
         checkOut: false,
         loading: false,
         error: null
@@ -45,9 +44,7 @@ class BurgerBuilder extends Component {
             .reduce((total, el) => {
                 return total + el;
             }, 0);
-        this.setState({
-            purchase: total > 0
-        });
+        return total > 0;
     };
     // While this method is simiar to the one in Burger.js, we don't need to know the names.
     // All we really need is the collective value of all the ingredients
@@ -144,7 +141,7 @@ class BurgerBuilder extends Component {
                         ingredientAdded={this.props.onAddIngredient}
                         ingredientRemoved={this.props.onRemoveIngredient}
                         disabled={disabledButton}
-                        purchase={this.state.purchase}
+                        purchase={this.updatePurchaseState(this.props.ings)}
                         price={this.props.price}
                         ordered={this.checkOutHandler}
                     />
