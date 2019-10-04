@@ -8,6 +8,9 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
+import { connect } from "react-redux";
+import * as actionTypes from "../../store/actions";
+
 const INGREDIENT_PRICE = {
     lettuce: .8,
     bacon: .9,
@@ -180,6 +183,19 @@ class BurgerBuilder extends Component {
             </Aux >
         );
     }
+};
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients
+    };
+};
+
+const mapDispatchtoProps = dispatch =>{
+    return{
+        onAddIngredient: (ingName) => ({type: actionTypes.ADD_INGREDIENT, ingredientNam: ingName}),
+        onRemoveIngredient: (ingName) => ({type: actionTypes.ADD_INGREDIENT, ingredientNam: ingName})
+    };
 };
 
 export default withErrorHandler(BurgerBuilder, axios);
