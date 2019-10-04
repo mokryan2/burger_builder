@@ -16,7 +16,8 @@ const app = (
             <App />
         </BrowserRouter>
     </Provider>
-)
+);
+// The Provider component needs to wrap the Router component b/c both are implicitly setting up props on the wrapping component
 
 
 ReactDOM.render(app, document.getElementById('root'));
