@@ -11,18 +11,9 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions";
 
-const INGREDIENT_PRICE = {
-    lettuce: .8,
-    bacon: .9,
-    cheese: .75,
-    meat: 1.4,
-    egg: 1.2
-}
-
 class BurgerBuilder extends Component {
 
     state = {
-        totalPrice: 5,
         purchase: false,
         checkOut: false,
         loading: false,
@@ -61,42 +52,42 @@ class BurgerBuilder extends Component {
     // While this method is simiar to the one in Burger.js, we don't need to know the names.
     // All we really need is the collective value of all the ingredients
 
-    addIngredeientHandler = (type) => {
-        const oldIngredientCount = this.state.ingredients[type];
-        const updatedIngredientCount = oldIngredientCount + 1;
-        const updatedIngredient = {
-            ...this.state.ingredients
-        };
-        updatedIngredient[type] = updatedIngredientCount;
-        const priceAddition = INGREDIENT_PRICE[type]
-        const startPrice = this.state.totalPrice;
-        const endPrice = startPrice + priceAddition;
-        this.setState({
-            totalPrice: endPrice,
-            ingredients: updatedIngredient
-        });
-        this.updatePurchaseState(updatedIngredient);
-    };
+    // addIngredeientHandler = (type) => {
+    //     const oldIngredientCount = this.state.ingredients[type];
+    //     const updatedIngredientCount = oldIngredientCount + 1;
+    //     const updatedIngredient = {
+    //         ...this.state.ingredients
+    //     };
+    //     updatedIngredient[type] = updatedIngredientCount;
+    //     const priceAddition = INGREDIENT_PRICE[type]
+    //     const startPrice = this.state.totalPrice;
+    //     const endPrice = startPrice + priceAddition;
+    //     this.setState({
+    //         totalPrice: endPrice,
+    //         ingredients: updatedIngredient
+    //     });
+    //     this.updatePurchaseState(updatedIngredient);
+    // };
 
-    removeIngredientHandler = (type) => {
-        const oldIngredientCount = this.state.ingredients[type];
-        if (oldIngredientCount <= 0) {
-            return;
-        };
-        const updatedIngredientCount = oldIngredientCount - 1;
-        const updatedIngredient = {
-            ...this.state.ingredients
-        };
-        updatedIngredient[type] = updatedIngredientCount;
-        const priceDeduction = INGREDIENT_PRICE[type]
-        const startPrice = this.state.totalPrice;
-        const endPrice = startPrice - priceDeduction;
-        this.setState({
-            totalPrice: endPrice,
-            ingredients: updatedIngredient
-        });
-        this.updatePurchaseState(updatedIngredient);
-    };
+    // removeIngredientHandler = (type) => {
+    //     const oldIngredientCount = this.state.ingredients[type];
+    //     if (oldIngredientCount <= 0) {
+    //         return;
+    //     };
+    //     const updatedIngredientCount = oldIngredientCount - 1;
+    //     const updatedIngredient = {
+    //         ...this.state.ingredients
+    //     };
+    //     updatedIngredient[type] = updatedIngredientCount;
+    //     const priceDeduction = INGREDIENT_PRICE[type]
+    //     const startPrice = this.state.totalPrice;
+    //     const endPrice = startPrice - priceDeduction;
+    //     this.setState({
+    //         totalPrice: endPrice,
+    //         ingredients: updatedIngredient
+    //     });
+    //     this.updatePurchaseState(updatedIngredient);
+    // };
 
     checkOutHandler = () => {
         this.setState({
@@ -154,7 +145,7 @@ class BurgerBuilder extends Component {
                         ingredientRemoved={this.props.onRemoveIngredient}
                         disabled={disabledButton}
                         purchase={this.state.purchase}
-                        price={this.state.totalPrice}
+                        price={this.props.price}
                         ordered={this.checkOutHandler}
                     />
                 </Aux>
@@ -164,7 +155,7 @@ class BurgerBuilder extends Component {
                     checkOutCancelled={this.checkOutCancelHandler}
                     checkOutContinue={this.checkOutContinueHandler}
                     ingredients={this.props.ings}
-                    price={this.state.totalPrice}
+                    price={this.props.price}
                 />;
         }
         if (this.state.loading) {
@@ -186,7 +177,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients
+        ings: state.ingredients,
+        price: state.totalPrice
     };
 };
 

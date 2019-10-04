@@ -11,6 +11,14 @@ const initialState = {
     totalPrice: 5
 };
 
+const INGREDIENT_PRICE = {
+    lettuce: .8,
+    bacon: .9,
+    cheese: .75,
+    meat: 1.4,
+    egg: 1.2
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
@@ -22,7 +30,8 @@ const reducer = (state = initialState, action) => {
                     ...state.ingredients,
                     // Need the extra level because spread operator won't go into objects to create new ones
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-                }
+                },
+                totalPrice: state.totalPrice + INGREDIENT_PRICE[action.ingredientName]
             };
         case actionTypes.REMOVE_INGREDIENT:
             return {
@@ -30,7 +39,8 @@ const reducer = (state = initialState, action) => {
                 ingredients: {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-                }
+                },
+                totalPrice: state.totalPrice - INGREDIENT_PRICE[action.ingredientName]
             };
         default:
             return state;
