@@ -2,11 +2,11 @@ import * as actionTypes from "./actions";
 
 const initialState = {
     ingredients: {
-        bacon: 0,
         egg: 0,
-        lettuce: 0,
+        bacon: 0,
         cheese: 0,
-        meat: 0
+        meat: 0,
+        lettuce: 0
     },
     totalPrice: 5
 };
@@ -35,7 +35,6 @@ const reducer = (state = initialState, action) => {
         default:
             return state;
     }
-    return state;
 };
 // Remember, we don't technically need to include the break statement due to the guarantee of a return
 
