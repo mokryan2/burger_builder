@@ -29,19 +29,19 @@ class BurgerBuilder extends Component {
 
     componentDidMount() {
         console.log(this.props)
-        axios.get("https://react-burger-238f6.firebaseio.com/ingredients.json")
-            .then(response => {
-                this.setState({
-                    ingredients: response.data
-                })
-            })
-            .catch(error => {
-                this.setState({
-                    error: true
-                })
-            });
-        // It is important to note that this method requires an ingredients object with the ingredients
-        // to ALWAYS exist within firebase. If it isn't there, you'll get stuck with infinite loading...
+        // axios.get("https://react-burger-238f6.firebaseio.com/ingredients.json")
+        //     .then(response => {
+        //         this.setState({
+        //             ingredients: response.data
+        //         })
+        //     })
+        //     .catch(error => {
+        //         this.setState({
+        //             error: true
+        //         })
+        //     });
+        // // It is important to note that this method requires an ingredients object with the ingredients
+        // // to ALWAYS exist within firebase. If it isn't there, you'll get stuck with infinite loading...
     }
 
     updatePurchaseState(ingredients) {
