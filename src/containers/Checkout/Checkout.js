@@ -2,34 +2,9 @@ import React, { Component } from "react";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "./ContactData/ContactData";
 import { Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Checkout extends Component {
-
-    state = {
-        ingredients: null,
-        price: 0
-    };
-
-    componentWillMount() {
-        const query = new URLSearchParams(this.props.location.search);
-        // Remember that the componentDidMount method has an object that can be viewed via console.log(this.props); we're getting the props via this methodology
-        const ingredients = {};
-        let price = 0;
-        for (let param of query.entries()) {
-            if (param[0] === "price") {
-                price = param[1]
-                // This allows us to look at the price first and collect how much the burger will cost
-            }
-            else {
-                ingredients[param[0]] = +param[1]
-            }
-        };
-        // This allows us to loop through the list of ingredients and convert the URL into a key, value pair that can be used in the empty ingredients object stated up above
-        this.setState({
-            ingredients: ingredients,
-            totalPrice: price
-        });
-    };
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -67,4 +42,14 @@ class Checkout extends Component {
     }
 };
 
-export default Checkout;
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    };
+};
+
+export default connect(mapStateToProps)(Checkout);
+// We don't really need to use mapDispatchToProps here b/c we're not passing data; however, it is worth noting
+// that if it were the other way around and we weren't passing mapStateToProps the connect method requires you to pass
+// null, mapDispatchToProps in this order because MDTP needs to always be the second argument
