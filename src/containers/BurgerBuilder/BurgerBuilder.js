@@ -99,26 +99,8 @@ class BurgerBuilder extends Component {
     };
 
     checkOutContinueHandler = () => {
-        const queryParams = [];
-
-        for (let i in this.state.ingredients) {
-            queryParams.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]))
-            // encodeURIComponent is a helper method offered by javascript that encodes elements so they can be used in a URL; mostly used for white spaces.
-            // This portion is needed so that it can be parsed into the Checkout.js file to acquire the ingredient count
-        };
-
-        queryParams.push("price=" + this.state.totalPrice.toFixed(2));
-        //This is needed so we can also push the actual price of the burger to the checkout page! 
-
-        const queryString = queryParams.join("&");
-        // This is so the URL continues and puts everything together like a continuous string
-
-        this.props.history.push({
-            pathname: "/checkout",
-            search: "?" + queryString
-        });
-        // Due to the nature of the component, we automatically have access to match, history, and location props which can be seen via the componentDidMount function; because of this
-        // connection, we can essentially stack the checkout page to progress forward when we click the checkout button in the modal.
+        this.props.history.push({pathname: "/checkout"});
+        // Now that we're implementing Redux, querey params are pretty much useless. Redux will make all of this much easier!
     };
 
     render() {
