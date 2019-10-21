@@ -9,7 +9,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import * as actionTypes from "../../store/actions/actionTypes";
 
 class BurgerBuilder extends Component {
 
@@ -99,7 +99,7 @@ class BurgerBuilder extends Component {
     };
 
     checkOutContinueHandler = () => {
-        this.props.history.push({pathname: "/checkout"});
+        this.props.history.push({ pathname: "/checkout" });
         // Now that we're implementing Redux, querey params are pretty much useless. Redux will make all of this much easier!
     };
 
