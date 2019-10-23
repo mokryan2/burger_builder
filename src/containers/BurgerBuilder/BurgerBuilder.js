@@ -4,7 +4,6 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
@@ -21,19 +20,7 @@ class BurgerBuilder extends Component {
 
     componentDidMount() {
         console.log(this.props)
-        // axios.get("https://react-burger-238f6.firebaseio.com/ingredients.json")
-        //     .then(response => {
-        //         this.setState({
-        //             ingredients: response.data
-        //         })
-        //     })
-        //     .catch(error => {
-        //         this.setState({
-        //             error: true
-        //         })
-        //     });
-        // // It is important to note that this method requires an ingredients object with the ingredients
-        // // to ALWAYS exist within firebase. If it isn't there, you'll get stuck with infinite loading...
+
     }
 
     updatePurchaseState(ingredients) {
@@ -168,4 +155,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder));
