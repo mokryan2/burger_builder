@@ -5,6 +5,7 @@ import Input from "../../../components/UI/Input/Input";
 import classes from "./ContactData.css"
 import axios from "../../../axios-orders";
 import { connect } from "react-redux";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler"
 
 class ContactData extends Component {
     state = {
@@ -132,24 +133,6 @@ class ContactData extends Component {
             orderData: formData
         };
 
-        axios.post("/orders.json", order)
-            .then(response => {
-                this.setState({
-                    loading: false
-                });
-                this.props.history.push("/")
-                // Because we're granted the history object from Checkout.js, we can force a redirect
-                // to the BurgerBuilder after posting data
-            })
-            .catch(err => {
-                this.setState({
-                    loading: false
-                });
-                // We're setting the spinner to stop loading in both instances of success or failure for the sake of maintaining the flow of the app.
-                // Sure we won't know right now if there's an error, but at least we won't think the app is still loading!
-            });
-        // This is important to note that becuase we're using firebase to serve as the database, you need to add ".json" to the end of the url link
-        // Evetually we're going to replace the hard-coded stuff to be collectible from a form, but this will do for test purposes
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -238,4 +221,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ContactData);
+export default connect(mapStateToProps)(withErrorHandler(ContactData, axios));
