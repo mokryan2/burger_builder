@@ -25,6 +25,9 @@ export const purchaseBurgerStart = () => {
 
 export const purchaseBurger = (orderData) => {
     return dispatch => {
+        dispatch(purchaseBurgerStart());
+        // Logically, you would start building/paying for your burger before sending your order; same logic is applied to the code. 
+        // Want to start the buying process before sending off the order
         axios.post("/orders.json", orderData)
             .then(response => {
                 dispatch(purchaseBurgerSuccess(response.data, orderData))
