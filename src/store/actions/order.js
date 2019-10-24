@@ -17,7 +17,13 @@ export const purcahseBurgerFail = (error) => {
 };
 // These are both of the SYNCHRONOUS action creator code sets!
 
-export const purchaseBurgerStart = (orderData) => {
+export const purchaseBurgerStart = () => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_START
+    };
+};
+
+export const purchaseBurger = (orderData) => {
     return dispatch => {
         axios.post("/orders.json", orderData)
             .then(response => {
