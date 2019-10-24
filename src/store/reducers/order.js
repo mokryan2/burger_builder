@@ -8,12 +8,25 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.types) {
         case actionTypes.PURCHASE_BURGER_SUCCESS:
-            return {};
+            const newOrder = {
+                ...action.orderData,
+                id: action.orderId
+            };
+            // This order is actually recieved through the action, but the ID is on a seperate property; this will combine the two into one
+            return {
+                ...state,
+                loading: false,
+                orders: state.orders.concat(newOrder)
+                // Reminder: concat() creates a new array that includes elements in object; maintains IMMUTABILITY!!!
+            };
         case actionTypes.PURCHASE_BURGER_FAIL:
-            return {};
+            return {
+                ...state,
+                loading: false
+            };
         default:
-            return {}
+            return state
     }
 };
 
-export default reducer
+export default reducer;
