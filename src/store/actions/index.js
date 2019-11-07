@@ -8,5 +8,6 @@ export {
 // Order.js
 export {
     purchaseBurger,
-    purchaseInit
+    purchaseInit,
+    fetchOrders
 } from "./order"
