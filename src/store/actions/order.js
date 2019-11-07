@@ -67,3 +67,26 @@ export const fetchOrdersStart = () => {
         type: actionTypes.FETCH_ORDERS_START
     };
 };
+
+export const fetchOrders = () =>{
+    return dispatch =>{
+        axios.get("/orders.json")
+            .then(res => {
+                const fetchedOrders = [];
+                // Setting a place for the orders to go
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                        // Pushing the data into the fetchedOrders array with a spread operator
+                        // as a new object to avoid losing the keys
+                    });
+                    console.log(fetchedOrders)
+                }
+                dispatch(fetchOrdersSuccess(fetchedOrders));
+            })
+            .catch(err => {
+                dispatch(fetchOrdersFail(err))
+            })
+    }
+}
