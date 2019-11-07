@@ -9,7 +9,7 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../axios-orders";
 
 import { connect } from "react-redux";
-import * as burgerBuilderActions from "../../store/actions/index";
+import * as actions from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
 
@@ -87,6 +87,7 @@ class BurgerBuilder extends Component {
     };
 
     checkOutContinueHandler = () => {
+        this.props.onInitPurchase();
         this.props.history.push({ pathname: "/checkout" });
         // Now that we're implementing Redux, querey params are pretty much useless. Redux will make all of this much easier!
     };
@@ -152,9 +153,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddIngredient: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onRemoveIngredient: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+        onAddIngredient: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onRemoveIngredient: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit())
     };
 };
 
