@@ -5,7 +5,6 @@ import classes from "./Auth.css";
 
 import {connect} from "react-redux";
 import * as actions from "../../store/actions/index";
-import { throwStatement } from "@babel/types";
 
 class Auth extends Component {
 
