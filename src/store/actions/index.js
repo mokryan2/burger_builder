@@ -11,3 +11,8 @@ export {
     purchaseInit,
     fetchOrders
 } from "./order"
+
+// Auth.js
+export {
+    auth
+} from "./auth"
