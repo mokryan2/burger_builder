@@ -5,6 +5,7 @@ import classes from "./Auth.css";
 
 import {connect} from "react-redux";
 import * as actions from "../../store/actions/index";
+import { throwStatement } from "@babel/types";
 
 class Auth extends Component {
 
@@ -38,7 +39,8 @@ class Auth extends Component {
                 valid: false,
                 touched: false
             }
-        }
+        },
+        isSignUp: true
     };
 
     checkValidation = (value, rules) => {
@@ -91,6 +93,12 @@ class Auth extends Component {
         );
     };
 
+    switchAuthModeHandler = () =>{
+        this.setState(prevState => {
+            return {isSignUp: !prevState.isSignUp}
+        });
+    };
+
     render() {
 
         const formElementArray = [];
@@ -120,6 +128,9 @@ class Auth extends Component {
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success">SUBMIT</Button>
+                    <Button 
+                        clicked={this.switchAuthModeHandler}
+                        btnType="Danger">SWITCH TO {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}</Button>
                 </form>
             </div>
         )
