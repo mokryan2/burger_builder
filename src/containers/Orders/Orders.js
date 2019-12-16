@@ -14,7 +14,7 @@ class Orders extends Component {
 
     render() {
         let orders = <Spinner />
-        if(!this.props.loading) {
+        if (!this.props.loading) {
             orders = this.props.orders.map(
                 order => (
                     < Order
@@ -45,3 +45,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));
+
+// Note: Given the way that Firebase works, there is a rule set in place for all users that blocks the display of previous orders to any who are not authenticated. These rules can be seen in
+// the rules sections of the database on the firebase database hosted by Google. As it is, non users can still place orders though.
