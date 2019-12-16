@@ -68,10 +68,11 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
+    // In order for us to protect the orders data, we need to pass the token that is crated via authentication.
     return dispatch => {
         dispatch(fetchOrdersStart())
-        axios.get("/orders.json")
+        axios.get("/orders.json?auth=" + token)
             .then(res => {
                 const fetchedOrders = [];
                 // Setting a place for the orders to go
