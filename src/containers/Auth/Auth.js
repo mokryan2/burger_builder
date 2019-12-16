@@ -3,8 +3,8 @@ import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Auth.css";
-
-import {connect} from "react-redux";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 class Auth extends Component {
@@ -85,7 +85,7 @@ class Auth extends Component {
         });
     };
 
-    submitHandler = (event) =>{
+    submitHandler = (event) => {
         event.preventDefault();
         this.props.onAuth(
             this.state.controls.email.value,
@@ -94,9 +94,9 @@ class Auth extends Component {
         );
     };
 
-    switchAuthModeHandler = () =>{
+    switchAuthModeHandler = () => {
         this.setState(prevState => {
-            return {isSignUp: !prevState.isSignUp}
+            return { isSignUp: !prevState.isSignUp }
         });
     };
 
@@ -124,25 +124,31 @@ class Auth extends Component {
             />
         ));
 
-        if( this.props.loading){
+        if (this.props.loading) {
             form = <Spinner />
         };
 
         let errorMessage = null;
 
-        if(this.props.error){
-            errorMessage= (
+        if (this.props.error) {
+            errorMessage = (
                 <p>{this.props.error.message}</p>
             );
         };
 
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to="/" />
+        };
+
         return (
             <div className={classes.Auth}>
+                {authRedirect}
                 {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success">SUBMIT</Button>
-                    <Button 
+                    <Button
                         clicked={this.switchAuthModeHandler}
                         btnType="Danger">SWITCH TO {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}</Button>
                 </form>
@@ -151,15 +157,16 @@ class Auth extends Component {
     }
 };
 
-const mapStateToProps =state =>{
+const mapStateToProps = state => {
     return {
         loading: state.auth.loading.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null
     };
 };
 
-const mapDispatchToProps = dispatch =>{
-    return{
+const mapDispatchToProps = dispatch => {
+    return {
         onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
     };
 };
