@@ -14,5 +14,6 @@ export {
 
 // Auth.js
 export {
-    auth
+    auth,
+    logout
 } from "./auth"
