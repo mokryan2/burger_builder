@@ -68,11 +68,15 @@ export const fetchOrdersStart = () => {
     };
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
     // In order for us to protect the orders data, we need to pass the token that is crated via authentication.
     return dispatch => {
         dispatch(fetchOrdersStart())
-        axios.get("/orders.json?auth=" + token)
+
+        //Because we're passing more params than earlier, we can store this inside of a variable.
+        //The orderBy param is something understood by firebase which allows us to filter our data in relation to the specific target user
+        const queryParams = "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
+        axios.get("/orders.json" + queryParams)
             .then(res => {
                 const fetchedOrders = [];
                 // Setting a place for the orders to go
