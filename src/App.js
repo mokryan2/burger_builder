@@ -32,10 +32,17 @@ class App extends Component {
   };
 };
 
+// This is used to prevent access to the Checkout/Orders page when a user is not authenticated/logged in
+const mapStatetoProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(App));
