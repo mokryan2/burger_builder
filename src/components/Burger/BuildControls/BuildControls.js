@@ -25,10 +25,9 @@ const buidControls = (props) => (
         <button
             className={classes.OrderButton}
             disabled={!props.purchase}
-            onClick={props.ordered}
-        >{props.isAuth ? "ORDER NOW" : "SIGN-UP TO ORDER"}</button>
+            onClick={props.ordered}>{props.isAuth ? "ORDER NOW" : "SIGN-UP TO ORDER"}</button>
     </div >
-)
+);
 
 
 
