@@ -6,6 +6,7 @@ import classes from "./ContactData.css"
 import axios from "../../../axios-orders";
 import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import { updateObject } from "../../../shared/utility";
 import * as actions from "../../../store/actions/index";
 
 class ContactData extends Component {
@@ -146,23 +147,21 @@ class ContactData extends Component {
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedForm = {
-            ...this.state.orderForm
-        };
-        // This is to grab and maintain immutable state for the top-level of the order form
-
-        const updatedFormElement = {
-            ...updatedForm[inputIdentifier]
-        };
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: this.checkValidation(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        });
         // This is to go a level deeper than what we grab in the updated form to allow access to value field
 
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidation(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedForm[inputIdentifier] = updatedFormElement;
-        // These allow the field of the specific form element to be updated in the DOM
-        // The valid field is set to check if the value and validity is true
-        // The touched field is set to change to true when the user starts to input any data.
+        /* These allow the field of the specific form element to be updated in the DOM
+        The valid field is set to check if the value and validity is true
+        The touched field is set to change to true when the user starts to input any data.*/
+
+        const updatedForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        });
+        // This is to grab and maintain immutable state for the top-level of the order form
 
         let formIsValid = true;
         for (let inputIdentifier in updatedForm) {
